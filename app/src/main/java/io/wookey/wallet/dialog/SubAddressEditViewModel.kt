@@ -3,7 +3,7 @@ package io.wookey.wallet.dialog
 import android.arch.lifecycle.MutableLiveData
 import io.wookey.wallet.R
 import io.wookey.wallet.base.BaseViewModel
-import io.wookey.wallet.core.XMRWalletController
+import io.wookey.wallet.core.EVOWalletController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,7 +20,7 @@ class SubAddressEditViewModel : BaseViewModel() {
         uiScope.launch {
             try {
                 withContext(Dispatchers.IO) {
-                    XMRWalletController.addSubAddress(label)
+                    EVOWalletController.addSubAddress(label)
                 }
                 hideLoading.postValue(true)
                 success.postValue(true)

@@ -4,8 +4,8 @@ import android.arch.lifecycle.MutableLiveData
 import android.view.View
 import io.wookey.wallet.R
 import io.wookey.wallet.base.BaseViewModel
-import io.wookey.wallet.core.XMRRepository
-import io.wookey.wallet.core.XMRWalletController
+import io.wookey.wallet.core.EVORepository
+import io.wookey.wallet.core.EVOWalletController
 import io.wookey.wallet.data.AppDatabase
 import io.wookey.wallet.support.viewmodel.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 
 class BackupMnemonicViewModel : BaseViewModel() {
 
-    private val repository = XMRRepository()
+    private val repository = EVORepository()
 
     val title = MutableLiveData<Int>()
     val showPasswordDialog = SingleLiveEvent<Unit>()
@@ -57,8 +57,8 @@ class BackupMnemonicViewModel : BaseViewModel() {
                         toastRes.postValue(R.string.data_exception)
                     } else {
                         val path = repository.getWalletFilePath(wallet.name)
-                        XMRWalletController.openWallet(path, password)
-                        seedList.postValue(XMRWalletController.getSeed().split(" "))
+                        EVOWalletController.openWallet(path, password)
+                        seedList.postValue(EVOWalletController.getSeed().split(" "))
                         showBackupDialog.postValue(true)
                     }
                 }

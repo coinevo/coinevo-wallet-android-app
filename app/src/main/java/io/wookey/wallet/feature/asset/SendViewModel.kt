@@ -5,7 +5,7 @@ import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import android.content.Intent
 import io.wookey.wallet.base.BaseViewModel
-import io.wookey.wallet.core.XMRWalletController
+import io.wookey.wallet.core.EVOWalletController
 import io.wookey.wallet.data.entity.Asset
 import io.wookey.wallet.data.entity.Wallet
 import io.wookey.wallet.support.REQUEST_SCAN_ADDRESS
@@ -89,7 +89,7 @@ class SendViewModel : BaseViewModel() {
         if (it.isNullOrBlank()) {
             addressError.value = null
         } else {
-            addressError.value = !XMRWalletController.isAddressValid(it)
+            addressError.value = !EVOWalletController.isAddressValid(it)
         }
         receiveAddress.value = it
     }
@@ -103,7 +103,7 @@ class SendViewModel : BaseViewModel() {
         if (it.isNullOrBlank()) {
             paymentIdError.value = null
         } else {
-            paymentIdError.value = !XMRWalletController.isPaymentIdValid(it)
+            paymentIdError.value = !EVOWalletController.isPaymentIdValid(it)
         }
         paymentId.value = it
         if (it.length > 16) {
@@ -128,7 +128,7 @@ class SendViewModel : BaseViewModel() {
     fun clickGenerate() {
         uiScope.launch {
             withContext(Dispatchers.IO) {
-                autoFillPaymentId.postValue(XMRWalletController.generatePaymentId())
+                autoFillPaymentId.postValue(EVOWalletController.generatePaymentId())
             }
         }
     }
@@ -139,7 +139,7 @@ class SendViewModel : BaseViewModel() {
         uiScope.launch {
             try {
                 withContext(Dispatchers.IO) {
-                    XMRWalletController.createTransaction(isAll, receiveAddress.value!!, paymentId.value, receiveAmount.value!!)
+                    EVOWalletController.createTransaction(isAll, receiveAddress.value!!, paymentId.value, receiveAmount.value!!)
                     confirmTransfer.postValue(Intent().apply {
                         putExtra("token", activeAsset?.token)
                         putExtra("address", receiveAddress.value)

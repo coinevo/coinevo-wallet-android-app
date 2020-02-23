@@ -3,8 +3,8 @@ package io.wookey.wallet.feature.wallet
 import android.arch.lifecycle.MutableLiveData
 import io.wookey.wallet.R
 import io.wookey.wallet.base.BaseViewModel
-import io.wookey.wallet.core.XMRRepository
-import io.wookey.wallet.core.XMRWalletController
+import io.wookey.wallet.core.EVORepository
+import io.wookey.wallet.core.EVOWalletController
 import io.wookey.wallet.data.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -12,7 +12,7 @@ import kotlinx.coroutines.withContext
 
 class BackupKeyViewModel : BaseViewModel() {
 
-    private val repository = XMRRepository()
+    private val repository = EVORepository()
 
     val publicViewKey = MutableLiveData<String>()
     val secretViewKey = MutableLiveData<String>()
@@ -35,11 +35,11 @@ class BackupKeyViewModel : BaseViewModel() {
                         toastRes.postValue(R.string.data_exception)
                     } else {
                         val path = repository.getWalletFilePath(wallet.name)
-                        XMRWalletController.openWallet(path, password)
-                        publicViewKey.postValue(XMRWalletController.getPublicViewKey())
-                        secretViewKey.postValue(XMRWalletController.getSecretViewKey())
-                        publicSpendKey.postValue(XMRWalletController.getPublicSpendKey())
-                        secretSpendKey.postValue(XMRWalletController.getSecretSpendKey())
+                        EVOWalletController.openWallet(path, password)
+                        publicViewKey.postValue(EVOWalletController.getPublicViewKey())
+                        secretViewKey.postValue(EVOWalletController.getSecretViewKey())
+                        publicSpendKey.postValue(EVOWalletController.getPublicSpendKey())
+                        secretSpendKey.postValue(EVOWalletController.getSecretSpendKey())
                         address.postValue(wallet.address)
                     }
                 }

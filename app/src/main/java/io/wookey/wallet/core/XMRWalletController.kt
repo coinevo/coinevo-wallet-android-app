@@ -3,19 +3,19 @@ package io.wookey.wallet.core
 import android.util.Log
 import io.wookey.wallet.support.extensions.sharedPreferences
 
-import io.wookey.monero.data.Node
-import io.wookey.monero.data.TxData
-import io.wookey.monero.model.*
-import io.wookey.monero.util.RestoreHeight
+import io.wookey.coinevo.data.Node
+import io.wookey.coinevo.data.TxData
+import io.wookey.coinevo.model.*
+import io.wookey.coinevo.util.RestoreHeight
 import io.wookey.wallet.data.entity.SubAddress
 import org.json.JSONObject
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
 
-object XMRWalletController {
+object EVOWalletController {
 
-    const val TAG = "XMRWalletController"
+    const val TAG = "EVOWalletController"
 
     const val MNEMONIC_LANGUAGE = "English"
 

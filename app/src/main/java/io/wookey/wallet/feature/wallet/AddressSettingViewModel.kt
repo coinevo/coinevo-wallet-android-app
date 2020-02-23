@@ -3,8 +3,8 @@ package io.wookey.wallet.feature.wallet
 import android.arch.lifecycle.MutableLiveData
 import io.wookey.wallet.R
 import io.wookey.wallet.base.BaseViewModel
-import io.wookey.wallet.core.XMRRepository
-import io.wookey.wallet.core.XMRWalletController
+import io.wookey.wallet.core.EVORepository
+import io.wookey.wallet.core.EVOWalletController
 import io.wookey.wallet.data.AppDatabase
 import io.wookey.wallet.data.entity.SubAddress
 import io.wookey.wallet.data.entity.Wallet
@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 
 class AddressSettingViewModel : BaseViewModel() {
 
-    private val repository = XMRRepository()
+    private val repository = EVORepository()
 
     var walletId = -1
     var password: String? = null
@@ -66,7 +66,7 @@ class AddressSettingViewModel : BaseViewModel() {
         walletId = wallet.id
         openWallet(wallet)
         currentAddress = wallet.address
-        subAddresses.postValue(XMRWalletController.getSubAddresses())
+        subAddresses.postValue(EVOWalletController.getSubAddresses())
     }
 
     private fun loadWalletById() {
@@ -77,9 +77,9 @@ class AddressSettingViewModel : BaseViewModel() {
         }
         this.wallet = wallet
         val path = repository.getWalletFilePath(wallet.name)
-        XMRWalletController.openWallet(path, password!!)
+        EVOWalletController.openWallet(path, password!!)
         currentAddress = wallet.address
-        subAddresses.postValue(XMRWalletController.getSubAddresses())
+        subAddresses.postValue(EVOWalletController.getSubAddresses())
     }
 
     fun refreshSubAddresses() {
@@ -87,7 +87,7 @@ class AddressSettingViewModel : BaseViewModel() {
             try {
                 withContext(Dispatchers.IO) {
                     openWallet(wallet)
-                    subAddresses.postValue(XMRWalletController.getSubAddresses())
+                    subAddresses.postValue(EVOWalletController.getSubAddresses())
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -99,9 +99,9 @@ class AddressSettingViewModel : BaseViewModel() {
         if (wallet == null) {
             return
         }
-        if (XMRWalletController.getWallet() == null) {
+        if (EVOWalletController.getWallet() == null) {
             val path = repository.getWalletFilePath(wallet.name)
-            XMRWalletController.openWallet(path, password!!)
+            EVOWalletController.openWallet(path, password!!)
         }
     }
 

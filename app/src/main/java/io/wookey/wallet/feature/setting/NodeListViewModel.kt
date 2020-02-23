@@ -3,8 +3,8 @@ package io.wookey.wallet.feature.setting
 import android.arch.lifecycle.MutableLiveData
 import io.wookey.wallet.R
 import io.wookey.wallet.base.BaseViewModel
-import io.wookey.wallet.core.XMRRepository
-import io.wookey.wallet.core.XMRWalletController
+import io.wookey.wallet.core.EVORepository
+import io.wookey.wallet.core.EVOWalletController
 import io.wookey.wallet.data.AppDatabase
 import io.wookey.wallet.data.entity.Node
 import io.wookey.wallet.support.nodeArray
@@ -25,7 +25,7 @@ class NodeListViewModel : BaseViewModel() {
 
     val finish = SingleLiveEvent<Node>()
 
-    private val repository = XMRRepository()
+    private val repository = EVORepository()
 
     private var deleteNode: Node? = null
     private var canDelete = true
@@ -121,7 +121,7 @@ class NodeListViewModel : BaseViewModel() {
         uiScope.launch {
             try {
                 node.responseTime = withContext(Dispatchers.IO) {
-                    XMRWalletController.testRpcService(node.url)
+                    EVOWalletController.testRpcService(node.url)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

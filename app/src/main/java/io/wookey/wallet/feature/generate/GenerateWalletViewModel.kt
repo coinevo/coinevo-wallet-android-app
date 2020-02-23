@@ -5,7 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.content.Intent
 import io.wookey.wallet.R
 import io.wookey.wallet.base.BaseViewModel
-import io.wookey.wallet.core.XMRRepository
+import io.wookey.wallet.core.EVORepository
 import io.wookey.wallet.data.AppDatabase
 import io.wookey.wallet.support.WALLET_CREATE
 import io.wookey.wallet.support.WALLET_RECOVERY
@@ -36,7 +36,7 @@ class GenerateWalletViewModel : BaseViewModel() {
     val createWallet = MutableLiveData<Intent>()
     val recoveryWallet = MutableLiveData<Intent>()
 
-    private val repository = XMRRepository()
+    private val repository = EVORepository()
 
     private var passwordVisibility = false
 
@@ -81,7 +81,7 @@ class GenerateWalletViewModel : BaseViewModel() {
         } else {
             walletValidJob = uiScope.launch {
                 withContext(Dispatchers.IO) {
-                    val symbol = sharedPreferences().getString("symbol", "XMR") ?: "XMR"
+                    val symbol = sharedPreferences().getString("symbol", "EVO") ?: "EVO"
                     val count = AppDatabase.getInstance().walletDao().countWalletsByName(symbol, it)
                     if (count > 0) {
                         walletNameError.postValue(true)

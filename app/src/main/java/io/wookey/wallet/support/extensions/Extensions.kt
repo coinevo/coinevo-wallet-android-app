@@ -141,7 +141,7 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
 // TODO 增加图标字段，存储图标名称，用反射查找
 fun ImageView.setImage(coin: String) {
     when (coin.toUpperCase()) {
-        "XMR" -> setImageResource(R.drawable.icon_xmr)
+        "EVO" -> setImageResource(R.drawable.icon_evo)
         "DASH" -> setImageResource(R.drawable.icon_dash)
     }
 }

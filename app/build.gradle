@@ -48,7 +48,7 @@ android {
         variant.outputs.all { output ->
             def abiName = output.getFilter(com.android.build.OutputFile.ABI)
             if (abiName == null) abiName = "universal"
-            outputFileName = "monero-${variant.versionName}-${variant.versionCode}-${abiName}.apk"
+            outputFileName = "coinevo-${variant.versionName}-${variant.versionCode}-${abiName}.apk"
         }
     }
 }
@@ -85,6 +85,6 @@ dependencies {
     // 日期选择
     implementation 'com.contrarywind:Android-PickerView:4.1.7'
 
-    implementation project(':monero')
+    implementation project(':coinevo')
 
 }

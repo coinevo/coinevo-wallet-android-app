@@ -11,18 +11,18 @@ import io.wookey.wallet.support.extensions.getCurrentLocale
 import io.wookey.wallet.support.nodeArray
 import java.io.File
 
-class XMRRepository(val context: Application = App.instance) {
+class EVORepository(val context: Application = App.instance) {
 
     fun getKeysFilePath(name: String): String {
-        return "${context.filesDir.absolutePath}${File.separator}wallet${File.separator}xmr${File.separator}$name${File.separator}$name.keys"
+        return "${context.filesDir.absolutePath}${File.separator}wallet${File.separator}evo${File.separator}$name${File.separator}$name.keys"
     }
 
     fun getWalletFilePath(name: String): String {
-        return "${context.filesDir.absolutePath}${File.separator}wallet${File.separator}xmr${File.separator}$name${File.separator}$name"
+        return "${context.filesDir.absolutePath}${File.separator}wallet${File.separator}evo${File.separator}$name${File.separator}$name"
     }
 
-    private fun generateXMRFile(name: String): File {
-        val dir = "${context.filesDir.absolutePath}${File.separator}wallet${File.separator}xmr${File.separator}$name"
+    private fun generateEVOFile(name: String): File {
+        val dir = "${context.filesDir.absolutePath}${File.separator}wallet${File.separator}evo${File.separator}$name"
         val walletFolder = File(dir)
         if (!walletFolder.exists()) {
             walletFolder.mkdirs()
@@ -37,12 +37,12 @@ class XMRRepository(val context: Application = App.instance) {
     }
 
     fun createWallet(walletName: String, password: String): Wallet? {
-        return XMRWalletController.createWallet(generateXMRFile(walletName), password)
+        return EVOWalletController.createWallet(generateEVOFile(walletName), password)
     }
 
     fun recoveryWallet(walletName: String, password: String, mnemonic: String, restoreHeight: Long?): Wallet? {
-        return XMRWalletController.recoveryWallet(
-            generateXMRFile(walletName), password, mnemonic, restoreHeight
+        return EVOWalletController.recoveryWallet(
+            generateEVOFile(walletName), password, mnemonic, restoreHeight
                 ?: 0
         )
     }
@@ -51,8 +51,8 @@ class XMRRepository(val context: Application = App.instance) {
         walletName: String, password: String, address: String, viewKey: String,
         spendKey: String, restoreHeight: Long?
     ): Wallet? {
-        return XMRWalletController.createWalletWithKeys(
-            generateXMRFile(walletName), password, restoreHeight
+        return EVOWalletController.createWalletWithKeys(
+            generateEVOFile(walletName), password, restoreHeight
                 ?: 0, address, viewKey, spendKey
         )
     }
@@ -78,7 +78,7 @@ class XMRRepository(val context: Application = App.instance) {
 
     fun deleteWallet(name: String): Boolean {
         var success = false
-        val dir = "${context.filesDir.absolutePath}${File.separator}wallet${File.separator}xmr${File.separator}$name"
+        val dir = "${context.filesDir.absolutePath}${File.separator}wallet${File.separator}evo${File.separator}$name"
         val walletFolder = File(dir)
         if (walletFolder.exists() && walletFolder.isDirectory) {
             success = walletFolder.deleteRecursively()
@@ -88,7 +88,7 @@ class XMRRepository(val context: Application = App.instance) {
 
     fun insertNodes() {
         // 兼容旧版
-        val nodes = AppDatabase.getInstance().nodeDao().getSymbolNodes("XMR")
+        val nodes = AppDatabase.getInstance().nodeDao().getSymbolNodes("EVO")
         var zhNode: Node? = null
         nodes?.forEach {
             if (it.url == "124.160.224.28:18081") {
@@ -97,11 +97,11 @@ class XMRRepository(val context: Application = App.instance) {
             }
         }
         AppDatabase.getInstance().nodeDao().insertNodes(nodes = *nodeArray)
-        val node = AppDatabase.getInstance().nodeDao().getSymbolNode("XMR")
+        val node = AppDatabase.getInstance().nodeDao().getSymbolNode("EVO")
         val locale = context.getCurrentLocale()
-        if (locale == ZH_CN && zhNode == null && node != null && node.url == "node.moneroworld.com:18089") {
+        if (locale == ZH_CN && zhNode == null && node != null && node.url == "node.coinevoworld.com:18089") {
             // 兼容旧版，修改中文区默认节点
-            val filter = AppDatabase.getInstance().nodeDao().getSymbolNodes("XMR")?.filter {
+            val filter = AppDatabase.getInstance().nodeDao().getSymbolNodes("EVO")?.filter {
                 it.url == "124.160.224.28:18081"
             }
             if (!filter.isNullOrEmpty()) {

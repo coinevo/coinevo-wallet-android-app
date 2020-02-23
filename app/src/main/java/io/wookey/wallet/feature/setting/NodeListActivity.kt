@@ -33,7 +33,7 @@ class NodeListActivity : BaseTitleSecondActivity() {
 
         val viewModel = ViewModelProviders.of(this).get(NodeListViewModel::class.java)
 
-        val symbol = "XMR"
+        val symbol = "EVO"
         val canDelete = intent.getBooleanExtra("canDelete", true)
         viewModel.setCanDelete(canDelete)
         setCenterTitle("$symbol ${getString(R.string.node_setting)}")
@@ -88,7 +88,7 @@ class NodeListActivity : BaseTitleSecondActivity() {
         viewModel.dataChanged.observe(this, Observer { adapter.notifyDataSetChanged() })
 
         more.setOnClickListener {
-            openBrowser("https://wallet.wookey.io/monero-nodes/app.html")
+            openBrowser("https://wallet.wookey.io/coinevo-nodes/app.html")
         }
 
         viewModel.finish.observe(this, Observer {

@@ -3,7 +3,7 @@ package io.wookey.wallet.dialog
 import android.arch.lifecycle.MutableLiveData
 import io.wookey.wallet.R
 import io.wookey.wallet.base.BaseViewModel
-import io.wookey.wallet.core.XMRWalletController
+import io.wookey.wallet.core.EVOWalletController
 import io.wookey.wallet.data.entity.Node
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,7 +22,7 @@ class NodeEditViewModel : BaseViewModel() {
         uiScope.launch {
             try {
                 val responseTime = withContext(Dispatchers.IO) {
-                    XMRWalletController.testRpcService(url)
+                    EVOWalletController.testRpcService(url)
                 }
                 hideLoading.postValue(true)
                 success.postValue(Node(symbol = symbol, url = url, responseTime = responseTime))

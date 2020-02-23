@@ -36,7 +36,7 @@ class WalletManagerActivity : BaseTitleSecondActivity() {
         val adapter = WalletAdapter(list, viewModel)
         recyclerView.adapter = adapter
 
-        AppDatabase.getInstance().walletDao().loadSymbolWallets("XMR").observe(this, Observer { value ->
+        AppDatabase.getInstance().walletDao().loadSymbolWallets("EVO").observe(this, Observer { value ->
             value?.let {
                 list.clear()
                 list.addAll(it)

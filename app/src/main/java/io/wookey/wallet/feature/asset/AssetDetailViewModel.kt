@@ -6,8 +6,8 @@ import android.content.Intent
 import android.util.Log
 import io.wookey.wallet.R
 import io.wookey.wallet.base.BaseViewModel
-import io.wookey.wallet.core.XMRRepository
-import io.wookey.wallet.core.XMRWalletController
+import io.wookey.wallet.core.EVORepository
+import io.wookey.wallet.core.EVOWalletController
 import io.wookey.wallet.data.AppDatabase
 import io.wookey.wallet.data.entity.Asset
 import io.wookey.wallet.data.entity.Node
@@ -20,7 +20,7 @@ import kotlinx.coroutines.withContext
 
 class AssetDetailViewModel : BaseViewModel() {
 
-    private val repository = XMRRepository()
+    private val repository = EVORepository()
 
     val activeWallet = MutableLiveData<Wallet>()
 
@@ -49,7 +49,7 @@ class AssetDetailViewModel : BaseViewModel() {
     private var refreshEnabled = false
     private var currentNode: Node? = null
 
-    private val observer = object : XMRWalletController.Observer {
+    private val observer = object : EVOWalletController.Observer {
         var firstBlock = 0L
 
         override fun onWalletOpened() {
@@ -73,7 +73,7 @@ class AssetDetailViewModel : BaseViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        XMRWalletController.stopRefresh()
+        EVOWalletController.stopRefresh()
     }
 
     fun setAssetId(assetId: Int) {
@@ -122,10 +122,10 @@ class AssetDetailViewModel : BaseViewModel() {
                             ?: throw IllegalStateException()
                     currentNode = node
                     val split = node.url.split(":")
-                    XMRWalletController.setNode(split[0], split[1].toInt())
+                    EVOWalletController.setNode(split[0], split[1].toInt())
                     val path = repository.getWalletFilePath(wallet.name)
 
-                    XMRWalletController.startWallet(path, pwd, wallet.restoreHeight, observer)
+                    EVOWalletController.startWallet(path, pwd, wallet.restoreHeight, observer)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -145,7 +145,7 @@ class AssetDetailViewModel : BaseViewModel() {
     @Synchronized
     private fun refresh(firstBlock: Long): Long {
         var firstBlockHeight = firstBlock
-        if (XMRWalletController.isSynchronized()) {
+        if (EVOWalletController.isSynchronized()) {
             receiveEnabled.postValue(true)
             sendEnabled.postValue(true)
             synchronized.postValue(R.string.block_synchronized)
@@ -155,11 +155,11 @@ class AssetDetailViewModel : BaseViewModel() {
         } else {
             sendEnabled.postValue(false)
             // calculate progress
-            val daemonHeight = XMRWalletController.getDaemonBlockChainHeight()
-            val blockChainHeight = XMRWalletController.getBlockChainHeight()
+            val daemonHeight = EVOWalletController.getDaemonBlockChainHeight()
+            val blockChainHeight = EVOWalletController.getBlockChainHeight()
             val n = daemonHeight - blockChainHeight
             Log.d("refresh", "daemonHeight: $daemonHeight, blockChainHeight: $blockChainHeight, n: $n, " +
-                    "daemonBlockChainTargetHeight: ${XMRWalletController.getDaemonBlockChainTargetHeight()}")
+                    "daemonBlockChainTargetHeight: ${EVOWalletController.getDaemonBlockChainTargetHeight()}")
             if (n >= 0) {
                 if (firstBlockHeight == 0L) {
                     firstBlockHeight = blockChainHeight
@@ -182,15 +182,15 @@ class AssetDetailViewModel : BaseViewModel() {
     private fun updateBalance() {
         val asset = activeAsset ?: return
         val wallet = AppDatabase.getInstance().walletDao().getActiveWallet() ?: return
-        val balance = XMRWalletController.getBalance() ?: return
+        val balance = EVOWalletController.getBalance() ?: return
         val assetDao = AppDatabase.getInstance().assetDao()
         assetDao.updateAsset(asset.also {
-            it.balance = XMRWalletController.getDisplayAmount(balance)
+            it.balance = EVOWalletController.getDisplayAmount(balance)
         })
         // 适用非合约
         val walletDao = AppDatabase.getInstance().walletDao()
         walletDao.updateWallets(wallet.also {
-            it.balance = XMRWalletController.getDisplayAmount(balance)
+            it.balance = EVOWalletController.getDisplayAmount(balance)
         })
     }
 
@@ -199,8 +199,8 @@ class AssetDetailViewModel : BaseViewModel() {
         val asset = activeAsset ?: return
         val wallet = AppDatabase.getInstance().walletDao().getActiveWallet() ?: return
         val value = allTransfers.value
-        XMRWalletController.refreshTransactionHistory()
-        val list = XMRWalletController.getTransactionHistory()
+        EVOWalletController.refreshTransactionHistory()
+        val list = EVOWalletController.getTransactionHistory()
         list.forEach {
             it.token = asset.token
             it.assetId = asset.id
@@ -217,7 +217,7 @@ class AssetDetailViewModel : BaseViewModel() {
 
     private fun switchNode(node: Node) {
 
-        val wallet = XMRWalletController.getWallet()
+        val wallet = EVOWalletController.getWallet()
         // 异常处理
         if (wallet == null) {
             if (password.isNullOrBlank()) {
@@ -236,12 +236,12 @@ class AssetDetailViewModel : BaseViewModel() {
                 try {
                     withContext(Dispatchers.IO) {
                         val activeWallet = AppDatabase.getInstance().walletDao().getActiveWallet() ?: throw IllegalStateException()
-                        XMRWalletController.stopRefresh()
+                        EVOWalletController.stopRefresh()
                         indeterminate.postValue(null)
                         connecting.postValue(R.string.block_connecting)
                         val split = node.url.split(":")
-                        XMRWalletController.setNode(split[0], split[1].toInt())
-                        XMRWalletController.startRefresh(wallet, activeWallet.restoreHeight, observer)
+                        EVOWalletController.setNode(split[0], split[1].toInt())
+                        EVOWalletController.startRefresh(wallet, activeWallet.restoreHeight, observer)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()

@@ -5,7 +5,7 @@ import android.os.SystemClock
 import io.wookey.wallet.ActivityStackManager
 import io.wookey.wallet.R
 import io.wookey.wallet.base.BaseViewModel
-import io.wookey.wallet.core.XMRWalletController
+import io.wookey.wallet.core.EVOWalletController
 import io.wookey.wallet.data.AppDatabase
 import io.wookey.wallet.data.entity.Wallet
 import kotlinx.coroutines.Dispatchers
@@ -27,8 +27,8 @@ class ConfirmTransferViewModel : BaseViewModel() {
         uiScope.launch {
             withContext(Dispatchers.IO) {
                 activeWallet = AppDatabase.getInstance().walletDao().getActiveWallet()
-                amount.postValue(XMRWalletController.getTxAmount())
-                fee.postValue(XMRWalletController.getTxFee())
+                amount.postValue(EVOWalletController.getTxAmount())
+                fee.postValue(EVOWalletController.getTxFee())
                 if (activeWallet == null) {
                     toastInt.postValue(R.string.data_exception)
                     enabled.postValue(false)
@@ -44,7 +44,7 @@ class ConfirmTransferViewModel : BaseViewModel() {
         uiScope.launch {
             try {
                 withContext(Dispatchers.IO) {
-                    XMRWalletController.sendTransaction()
+                    EVOWalletController.sendTransaction()
                     SystemClock.sleep(300)
                     if (ActivityStackManager.getInstance().contain(AssetDetailActivity::class.java)) {
                         ActivityStackManager.getInstance().finishToActivity(AssetDetailActivity::class.java)

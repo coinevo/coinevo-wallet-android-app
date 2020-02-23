@@ -5,7 +5,7 @@ import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import android.content.Intent
 import io.wookey.wallet.base.BaseViewModel
-import io.wookey.wallet.core.XMRWalletController
+import io.wookey.wallet.core.EVOWalletController
 import io.wookey.wallet.data.AppDatabase
 import io.wookey.wallet.data.entity.AddressBook
 import io.wookey.wallet.support.REQUEST_SCAN_ADDRESS
@@ -65,7 +65,7 @@ class AddAddressViewModel : BaseViewModel() {
         if (it.isNullOrBlank()) {
             addressError.value = null
         } else {
-            addressError.value = !XMRWalletController.isAddressValid(it)
+            addressError.value = !EVOWalletController.isAddressValid(it)
         }
         address.value = it
     }

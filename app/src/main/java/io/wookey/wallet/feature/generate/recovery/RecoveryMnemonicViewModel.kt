@@ -3,8 +3,8 @@ package io.wookey.wallet.feature.generate.recovery
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import io.wookey.wallet.base.BaseViewModel
-import io.wookey.wallet.core.XMRRepository
-import io.wookey.wallet.core.XMRWalletController
+import io.wookey.wallet.core.EVORepository
+import io.wookey.wallet.core.EVOWalletController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -26,7 +26,7 @@ class RecoveryMnemonicViewModel : BaseViewModel() {
 
     val showDialog = MutableLiveData<Boolean>()
 
-    private val repository = XMRRepository()
+    private val repository = EVORepository()
 
     private lateinit var walletName: String
     private lateinit var password: String
@@ -81,7 +81,7 @@ class RecoveryMnemonicViewModel : BaseViewModel() {
         transactionDate.value = value
         try {
             if (blockHeight == 0L) {
-                blockHeight = XMRWalletController.getBlockHeight(value)
+                blockHeight = EVOWalletController.getBlockHeight(value)
             }
         } catch (e: Exception) {
             e.printStackTrace()

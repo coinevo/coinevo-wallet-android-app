@@ -7,7 +7,7 @@ import android.graphics.Bitmap
 import cn.bingoogolapple.qrcode.zxing.QRCodeEncoder
 import io.wookey.wallet.R
 import io.wookey.wallet.base.BaseViewModel
-import io.wookey.wallet.core.XMRWalletController
+import io.wookey.wallet.core.EVOWalletController
 import io.wookey.wallet.data.AppDatabase
 import io.wookey.wallet.data.entity.Asset
 import io.wookey.wallet.data.entity.Wallet
@@ -50,7 +50,7 @@ class ReceiveViewModel : BaseViewModel() {
                         ?: throw IllegalStateException()
                     activeWallet.postValue(wallet)
                     address.postValue(wallet.address)
-                    if (XMRWalletController.isAddressValid(wallet.address)) {
+                    if (EVOWalletController.isAddressValid(wallet.address)) {
                         QRCodeBitmap.postValue(QRCodeEncoder.syncEncodeQRCode(wallet.address, dp2px(115)))
                     } else {
                         QRCodeBitmap.postValue(null)
@@ -94,7 +94,7 @@ class ReceiveViewModel : BaseViewModel() {
     fun generate() {
         uiScope.launch {
             withContext(Dispatchers.IO) {
-                paymentId.postValue(XMRWalletController.generatePaymentId())
+                paymentId.postValue(EVOWalletController.generatePaymentId())
             }
         }
     }
@@ -107,8 +107,8 @@ class ReceiveViewModel : BaseViewModel() {
         uiScope.launch {
             withContext(Dispatchers.IO) {
                 if (id.length == 16 || id.length == 64) {
-                    if (XMRWalletController.isPaymentIdValid(id)) {
-                        integratedAddress.postValue(XMRWalletController.getIntegratedAddress(id))
+                    if (EVOWalletController.isPaymentIdValid(id)) {
+                        integratedAddress.postValue(EVOWalletController.getIntegratedAddress(id))
                         paymentIdError.postValue(null)
                     } else {
                         integratedAddress.postValue("")
@@ -126,7 +126,7 @@ class ReceiveViewModel : BaseViewModel() {
             withContext(Dispatchers.IO) {
                 var address = value
                 if (!address.isNullOrBlank()) {
-                    if (XMRWalletController.isAddressValid(address)) {
+                    if (EVOWalletController.isAddressValid(address)) {
                         integratedError.postValue(null)
                     } else {
                         integratedError.postValue(R.string.integrated_invalid)
@@ -135,7 +135,7 @@ class ReceiveViewModel : BaseViewModel() {
                     address = activeWallet.value?.address ?: ""
                     integratedError.postValue(null)
                 }
-                if (XMRWalletController.isAddressValid(address)) {
+                if (EVOWalletController.isAddressValid(address)) {
                     QRCodeBitmap.postValue(QRCodeEncoder.syncEncodeQRCode(address, dp2px(115)))
                 } else {
                     QRCodeBitmap.postValue(null)
@@ -147,7 +147,7 @@ class ReceiveViewModel : BaseViewModel() {
     fun generateQRCode(address: String) {
         uiScope.launch {
             withContext(Dispatchers.IO) {
-                if (XMRWalletController.isAddressValid(address)) {
+                if (EVOWalletController.isAddressValid(address)) {
                     QRCodeBitmap.postValue(QRCodeEncoder.syncEncodeQRCode(address, dp2px(115)))
                 } else {
                     QRCodeBitmap.postValue(null)

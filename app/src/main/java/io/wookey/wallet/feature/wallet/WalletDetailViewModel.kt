@@ -4,8 +4,8 @@ import android.arch.lifecycle.MutableLiveData
 import android.content.Intent
 import io.wookey.wallet.R
 import io.wookey.wallet.base.BaseViewModel
-import io.wookey.wallet.core.XMRRepository
-import io.wookey.wallet.core.XMRWalletController
+import io.wookey.wallet.core.EVORepository
+import io.wookey.wallet.core.EVOWalletController
 import io.wookey.wallet.data.AppDatabase
 import io.wookey.wallet.data.entity.Wallet
 import io.wookey.wallet.support.viewmodel.SingleLiveEvent
@@ -34,7 +34,7 @@ class WalletDetailViewModel : BaseViewModel() {
 
     private var walletId = -1
 
-    private val repository = XMRRepository()
+    private val repository = EVORepository()
 
     fun setWalletId(value: Int) {
         walletId = value
@@ -98,7 +98,7 @@ class WalletDetailViewModel : BaseViewModel() {
                         return@withContext
                     }
                     // 停止钱包
-                    XMRWalletController.stopWallet()
+                    EVOWalletController.stopWallet()
                     if (repository.deleteWallet(wallet.name)) {
                         // 删除交易记录
                         val info = AppDatabase.getInstance().transactionInfoDao().getTransactionInfoByWalletId(walletId)

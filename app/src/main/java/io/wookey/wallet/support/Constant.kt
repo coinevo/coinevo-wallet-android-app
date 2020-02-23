@@ -24,23 +24,23 @@ const val ZH_CN = "zh-CN"
 const val EN = "en"
 
 val coinList = listOf(
-        Coin("XMR", "Monero")
+        Coin("EVO", "Coinevo")
 )
 
 val nodeArray = arrayOf(
         Node().apply {
-            symbol = "XMR"
-            url = "node.moneroworld.com:18089"
+            symbol = "EVO"
+            url = "node.coinevo.tech:18089"
             isSelected = true
         },
         Node().apply {
-            symbol = "XMR"
-            url = "opennode.xmr-tw.org:18089"
+            symbol = "EVO"
+            url = "opennode.coinevo.tech:18089"
             isSelected = false
         },
         Node().apply {
-            symbol = "XMR"
-            url = "uwillrunanodesoon.moneroworld.com:18089"
+            symbol = "EVO"
+            url = "node1.coinevo.tech:18089"
             isSelected = false
         }
 )
