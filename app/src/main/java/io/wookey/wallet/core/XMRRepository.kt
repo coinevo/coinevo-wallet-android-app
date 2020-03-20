@@ -91,7 +91,7 @@ class EVORepository(val context: Application = App.instance) {
         val nodes = AppDatabase.getInstance().nodeDao().getSymbolNodes("EVO")
         var zhNode: Node? = null
         nodes?.forEach {
-            if (it.url == "124.160.224.28:18081") {
+            if (it.url == "80.211.167.27:33331") {
                 zhNode = it
                 return@forEach
             }
@@ -99,10 +99,10 @@ class EVORepository(val context: Application = App.instance) {
         AppDatabase.getInstance().nodeDao().insertNodes(nodes = *nodeArray)
         val node = AppDatabase.getInstance().nodeDao().getSymbolNode("EVO")
         val locale = context.getCurrentLocale()
-        if (locale == ZH_CN && zhNode == null && node != null && node.url == "node.coinevoworld.com:18089") {
+        if (locale == ZH_CN && zhNode == null && node != null && node.url == "mobile.coinevo.tech:33331") {
             // 兼容旧版，修改中文区默认节点
             val filter = AppDatabase.getInstance().nodeDao().getSymbolNodes("EVO")?.filter {
-                it.url == "124.160.224.28:18081"
+                it.url == "80.211.167.27:33331"
             }
             if (!filter.isNullOrEmpty()) {
                 AppDatabase.getInstance().nodeDao().updateNodes(

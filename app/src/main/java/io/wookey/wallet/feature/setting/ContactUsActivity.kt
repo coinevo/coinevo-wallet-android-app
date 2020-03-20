@@ -31,10 +31,10 @@ class ContactUsActivity : BaseTitleSecondActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         val list = listOf(
-                ContactUs(R.drawable.icon_telegram, "Telegram", "https://t.me/WooKeyWallet"),
-                ContactUs(R.drawable.icon_twitter, "Twitter", "https://twitter.com/WooKeyWallet"),
-                ContactUs(R.drawable.icon_github, "GitHub", "https://github.com/WooKeyWallet"),
-                ContactUs(R.drawable.icon_facebook, "Facebook", "https://www.facebook.com/WooKeyWalletOfficialChannel"))
+                ContactUs(R.drawable.icon_telegram, "Telegram", "https://t.me/coinevo"),
+                ContactUs(R.drawable.icon_twitter, "Twitter", "https://twitter.com/coinevo2"),
+                ContactUs(R.drawable.icon_github, "GitHub", "https://github.com/coinevo/coinevo-wallet-android-app"),
+                ContactUs(R.drawable.icon_facebook, "Facebook", "https://www.facebook.com/coinevo_12"))
         recyclerView.adapter = ContactUsAdapter(list, viewModel)
         recyclerView.addItemDecoration(DividerItemDecoration().apply {
             setOrientation(DividerItemDecoration.VERTICAL)

@@ -119,7 +119,7 @@ class WebViewActivity : BaseTitleSecondActivity() {
                 writeData(getCurrentLocale())
             }
         }
-        mWebView.loadUrl("https://wallet.wookey.io/service-docs/app.html")
+        mWebView.loadUrl("https://coinevo.tech/service-docs/app.html")
 
         setRightIcon(R.drawable.icon_refresh)
         setRightIconClick(View.OnClickListener { mWebView.reload() })

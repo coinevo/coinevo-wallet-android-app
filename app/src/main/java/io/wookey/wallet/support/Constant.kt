@@ -30,17 +30,17 @@ val coinList = listOf(
 val nodeArray = arrayOf(
         Node().apply {
             symbol = "EVO"
-            url = "node.coinevo.tech:18089"
+            url = "mobile.coinevo.tech:33331"
             isSelected = true
         },
         Node().apply {
             symbol = "EVO"
-            url = "opennode.coinevo.tech:18089"
+            url = "mobile2.coinevo.tech:33331"
             isSelected = false
         },
         Node().apply {
             symbol = "EVO"
-            url = "node1.coinevo.tech:18089"
+            url = "mobile3.coinevo.tech:33331"
             isSelected = false
         }
 )

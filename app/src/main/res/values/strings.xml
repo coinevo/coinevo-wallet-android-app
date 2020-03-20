@@ -10,7 +10,7 @@
     <string name="coin_select">Select Asset</string>
 
     <string name="generate_wallet_prompt_one">For the security and safety of your assets, please set a password used for authorization of your private key and transactions</string>
-    <string name="generate_wallet_prompt_two">WooKey will not save your password, nor will you be able to recover the password, please keep it secure</string>
+    <string name="generate_wallet_prompt_two">Evomobile will not save your password, nor will you be able to recover the password, please keep it secure</string>
     <string name="wallet_name">Wallet Name</string>
     <string name="set_password">Set Password</string>
     <string name="confirm_password">Confirm Password</string>
@@ -55,7 +55,7 @@
     <string name="node_setting">Node</string>
     <string name="language">Language</string>
     <string name="contact_us">Contact Us</string>
-    <string name="about_us">About WooKey</string>
+    <string name="about_us">About Evo-mobile</string>
     <string name="edit_node_url">Enter a valid node address</string>
     <string name="edit_node_url_hint">Please enter node address</string>
     <string name="current_node_prompt">Current node is %1$s</string>
@@ -152,7 +152,7 @@
     <string name="transaction_date_invalid">Incorrect transaction date</string>
 
     <string name="version_placeholder">Version V %1$s</string>
-    <string name="about">The WooKey team develops secure, professional, reliable and simple digital asset wallet applications. We strive to protect private data and property of users. We measure success by the ease with which new and non-tech savvy users can get started using cryptocurrencies.</string>
+    <string name="about">The Coinevo team develops secure, professional, reliable and simple digital asset wallet applications. We strive to protect private data and property of users. We measure success by the ease with which new and non-tech savvy users can get started using cryptocurrencies.</string>
     <string name="agreement">Terms of Service</string>
 
     <string name="select_language">Select Language</string>

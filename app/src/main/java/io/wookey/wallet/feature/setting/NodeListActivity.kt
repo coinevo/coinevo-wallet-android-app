@@ -88,7 +88,7 @@ class NodeListActivity : BaseTitleSecondActivity() {
         viewModel.dataChanged.observe(this, Observer { adapter.notifyDataSetChanged() })
 
         more.setOnClickListener {
-            openBrowser("https://wallet.wookey.io/coinevo-nodes/app.html")
+            openBrowser("https://coinevo.tech/coinevo-nodes/app.html")
         }
 
         viewModel.finish.observe(this, Observer {
